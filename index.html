@@ -1,212 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="#" content="#" />
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NU Admission Result Calculator</title>
-    <link rel="icon" type="image/jpeg/png" href="https://i.ibb.co.com/qMjwrjtD/logo.png">
-    <style>
-        :root {
-            --primary-color: #006a4e; 
-            --secondary-color: #f4f4f4;
-            --text-color: #333;
-            --border-radius: 8px;
-            --fb-color: #1877f2;
-            --wa-color: #25D366;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #e9ecef;
-            color: var(--text-color);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            align-items: center;
-        }
-        /* Main Container */
-        .container {
-            width: 90%;
-            max-width: 500px;
-            background: white;
-            padding: 30px;
-            margin-top: 50px;
-            border-radius: var(--border-radius);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            flex: 1; /* Push footer down */
-        }
-        h2 {
-            text-align: center;
-            color: var(--primary-color);
-            margin-bottom: 25px;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 10px;
-        }
-        /* Form Elements */
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NU Admission Result Calculator</title>
+<link rel="icon" type="image/png" href="https://i.ibb.co.com/qMjwrjtD/logo.png">
+
+<style>
+    :root {
+        --primary-color: #006a4e; 
+        --secondary-color: #f4f4f4;
+        --text-color: #333;
+        --border-radius: 8px;
+    }
+
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #e9ecef;
+        color: var(--text-color);
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        align-items: center;
+    }
+
+    /* Header Box */
+    .title-box {
+        width: 90%;
+        max-width: 500px;
+        background: var(--primary-color);
+        padding: 12px;
+        margin-top: 10px;
+        border-radius: var(--border-radius);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+    }
+    .title-box img {
+        width: 45px;
+        height: 45px;
+    }
+    .title-box span {
+        color: white;
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    /* Main Container */
+    .container {
+        width: 90%;
+        max-width: 500px;
+        background: white;
+        padding: 30px;
+        margin-top: 15px;
+        border-radius: var(--border-radius);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        flex: 0;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+    .info-text {
+        font-size: 0.85em;
+        color: #777;
+        font-weight: normal;
+    }
+
+    input[type="number"] {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: var(--border-radius);
+        font-size: 16px;
+        box-sizing: border-box;
+        transition: border 0.3s;
+    }
+    input[type="number"]:focus {
+        border-color: var(--primary-color);
+        outline: none;
+    }
+    input::placeholder {
+        color: #888;
+    }
+
+    /* Buttons */
+    .btn-group {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+    }
+    button {
+        padding: 12px 10px;
+        width:48%;
+        border: none;
+        border-radius: var(--border-radius);
+        font-size: 16px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s;
+    }
+    .btn-calc {
+        background-color: var(--primary-color);
+        color: white;
+    }
+    .btn-calc:hover {
+        background-color: #004d38;
+    }
+    .btn-reset {
+        background-color: #dc3545;
+        color: white;
+    }
+    .btn-reset:hover {
+        background-color: #a71d2a;
+    }
+
+    /* Result Section */
+    #result-area {
+        margin-top: 30px;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: var(--border-radius);
+        display: none;
+        border-left: 5px solid var(--primary-color);
+    }
+    .result-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-size: 15px;
+    }
+    .total-row {
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #ccc;
+        font-weight: bold;
+        font-size: 1.2em;
+        color: var(--primary-color);
+    }
+
+    .error {
+        color: red;
+        font-size: 14px;
+        display: none;
+    }
+
+    /* Footer */
+    .footer {
+        text-align: center;
+        padding: 15px 10px;
+        font-weight: 500;
+        color: #fff;
+        background-color: #006a4e;
+        width: 90%;
+        max-width: 500px;
+        border-radius: var(--border-radius);
+        margin-top: 10px; /* Footer will be just below container */
+    }
+
+    .footer a {
+        color: #fff;
+        font-weight: bold;
+        text-decoration: none;
+    }
+    .footer a:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width:600px){
+        .title-box span {
+            font-size: 18px;
         }
         input[type="number"] {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: var(--border-radius);
-            font-size: 16px;
-            box-sizing: border-box; /* Fix padding issue */
-            transition: border 0.3s;
-        }
-        input[type="number"]:focus {
-            border-color: var(--primary-color);
-            outline: none;
-        }
-        .optional-tag {
-            font-size: 0.85em;
-            color: #777;
-            font-weight: normal;
-        }
-        /* Buttons */
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
+            font-size: 14px;
         }
         button {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: var(--border-radius);
-            font-size: 16px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
-        .btn-calc {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        .btn-calc:hover {
-            background-color: #004d38;
-        }
-        .btn-reset {
-            background-color: #dc3545;
-            color: white;
-        }
-        .btn-reset:hover {
-            background-color: #a71d2a;
-        }
-        /* Result Section */
-        #result-area {
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #f8f9fa;
-            border-radius: var(--border-radius);
-            display: none; /* Hidden by default */
-            border-left: 5px solid var(--primary-color);
-        }
-        .result-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 15px;
-        }
-        .total-row {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #ccc;
-            font-weight: bold;
-            font-size: 1.2em;
-            color: var(--primary-color);
-        }
-        .error {
-            color: red;
             font-size: 14px;
-            margin-top: 5px;
-            display: none;
         }
-        /* Highlighted Link Section */
-        .highlight-link-box {
-            margin-top: 25px;
-            padding: 15px;
-            background-color: #fff3cd;
-            border: 1px solid #ffeeba;
-            border-radius: var(--border-radius);
-            text-align: center;
-        }
-        .highlight-link {
-            font-weight: bold;
-            color: #856404;
-            text-decoration: none;
-            font-size: 1.1em;
-            word-break: break-all;
-        }
-        
-        .highlight-link:hover {
-            text-decoration: underline;
-        }
-        /* Mobile Adjustments */
-        @media (max-width: 600px) {
-            .container {
-                width: 90%;
-                margin-top: 20px;
-            }
-        }
-        .copyright {
-      color: #000;
-      font-weight: 500;
-      margin-bottom: 10px;
-      opacity: 0.9;
-      text-shadow: 0 0 10px #fff;
     }
-
-    .copyright a {
-      color: #000;
-      text-decoration: none;
-      transition: 0.3s ease;
-    }
-
-    .copyright a:hover {
-      text-shadow: 0 0 12px #000;
-    }
-
-    </style>
+</style>
 </head>
+
 <body>
+
+    <!-- Green Header Box With Logo -->
+    <div class="title-box">
+        <img src="https://i.ibb.co.com/qMjwrjtD/logo.png" alt="Logo">
+        <span>NU Result Calculator</span>
+    </div>
+
     <div class="container">
-        <h2>NU Result Calculator</h2>
-        <!-- Highlighted Link Section -->
-        <div class="highlight-link-box">
-            <span>Visit Official Site:</span><br>
-            <a href="https://nugpacalculator.vercel.app/" class="highlight-link" target="_blank">https://nugpacalculator.vercel.app/</a>
-                                                                                                                                            
-        </div>
-        <br>
+        
         <div class="form-group">
-            <label for="ssc">SSC GPA (Out of 5.00)</label>
-            <input type="number" id="ssc" placeholder="e.g. 4.50" step="0.01" min="1" max="5">
+            <label for="ssc">SSC GPA <span class="info-text">(Out of 5.00)</span></label>
+            <input type="number" id="ssc" placeholder="e.g. 5.00" step="0.01" min="1" max="5">
             <div id="ssc-error" class="error">Please enter a valid GPA (1.00 - 5.00)</div>
         </div>
+
         <div class="form-group">
-            <label for="hsc">HSC GPA (Out of 5.00)</label>
+            <label for="hsc">HSC GPA <span class="info-text">(Out of 5.00)</span></label>
             <input type="number" id="hsc" placeholder="e.g. 5.00" step="0.01" min="1" max="5">
             <div id="hsc-error" class="error">Please enter a valid GPA (1.00 - 5.00)</div>
         </div>
+
         <div class="form-group">
-            <label for="mcq">MCQ Mark <span class="optional-tag">(Optional, Max 100)</span></label>
-            <input type="number" id="mcq" placeholder="e.g. 75" min="0" max="100">
+            <label for="mcq">MCQ Mark <span class="info-text">(Optional, Max 100)</span></label>
+            <input type="number" id="mcq" placeholder="e.g. 100" min="0" max="100">
             <div id="mcq-error" class="error">Please enter a valid mark (0 - 100)</div>
         </div>
-    
+
+        <!-- Buttons -->
         <div class="btn-group">
-            <button class="btn-calc" onclick="calculateResult()">Calculate Result</button>
             <button class="btn-reset" onclick="resetForm()">Reset</button>
+            <button class="btn-calc" onclick="calculateResult()">Calculate Result</button>
         </div>
+
+        <!-- Result -->
         <div id="result-area">
             <div class="result-row">
                 <span>SSC Contribution (40%):</span>
@@ -225,65 +242,64 @@
                 <span id="res-total">0.00</span>
             </div>
         </div>
-        
-    
     </div>
 
-        </div>
+    <!-- Footer -->
+    <div class="footer">
+        ©2025 NU Result Calculator.<br> Developed by 
+        <a href="https://foysalahmmedsadin.netlify.app/" target="_blank"><u>Foysal Ahmmed Sadin.</u></a>
     </div>
-    <script>
-        function calculateResult() {
-            // Get values
-            const sscInput = document.getElementById('ssc').value;
-            const hscInput = document.getElementById('hsc').value;
-            const mcqInput = document.getElementById('mcq').value;
-            // Reset errors
-            document.querySelectorAll('.error').forEach(el => el.style.display = 'none');
-            let isValid = true;
-            // Validation logic
-            const sscGpa = parseFloat(sscInput);
-            const hscGpa = parseFloat(hscInput);
-            // Treat empty MCQ as 0
-            const mcqMark = mcqInput === "" ? 0 : parseFloat(mcqInput);
-            if (!sscInput || sscGpa < 1 || sscGpa > 5) {
-                document.getElementById('ssc-error').style.display = 'block';
-                isValid = false;
-            }
-            if (!hscInput || hscGpa < 1 || hscGpa > 5) {
-                document.getElementById('hsc-error').style.display = 'block';
-                isValid = false;
-            }
-            if (mcqMark < 0 || mcqMark > 100) {
-                document.getElementById('mcq-error').style.display = 'block';
-                isValid = false;
-            }
-            if (!isValid) {
-                document.getElementById('result-area').style.display = 'none';
-                return;
-            }
-            // Calculation Formula for NU
-            // SSC (40% of 100 marks based on GPA 5) -> GPA * 8
-            // HSC (60% of 100 marks based on GPA 5) -> GPA * 12
-            const sscScore = sscGpa * 8;
-            const hscScore = hscGpa * 12;
-            const totalScore = sscScore + hscScore + mcqMark;
-            // Display Results
-            document.getElementById('res-ssc').innerText = sscScore.toFixed(2);
-            document.getElementById('res-hsc').innerText = hscScore.toFixed(2);
-            document.getElementById('res-mcq').innerText = mcqMark;
-            document.getElementById('res-total').innerText = totalScore.toFixed(2);
-            document.getElementById('result-area').style.display = 'block';
-        }
-        function resetForm() {
-            document.getElementById('ssc').value = '';
-            document.getElementById('hsc').value = '';
-            document.getElementById('mcq').value = '';
-            document.getElementById('result-area').style.display = 'none';
-            document.querySelectorAll('.error').forEach(el => el.style.display = 'none');
-        }
-       </script>
-        <div class="copyright">
-        <i>©2025 NU Result Calculator. All rights reserved.<br>Designed & Developed by 
-        <a href="https://foysal24x7.netlify.app/"><u>Foysal Ahmmed Sadin.</u></i></a>
-        </body>
-        </html>
+
+<script>
+function calculateResult() {
+    const sscInput = document.getElementById('ssc').value;
+    const hscInput = document.getElementById('hsc').value;
+    const mcqInput = document.getElementById('mcq').value;
+
+    document.querySelectorAll('.error').forEach(el => el.style.display = 'none');
+
+    let isValid = true;
+    const sscGpa = parseFloat(sscInput);
+    const hscGpa = parseFloat(hscInput);
+    const mcqMark = mcqInput === "" ? 0 : parseFloat(mcqInput);
+
+    if (!sscInput || sscGpa < 1 || sscGpa > 5) {
+        document.getElementById('ssc-error').style.display = 'block';
+        isValid = false;
+    }
+    if (!hscInput || hscGpa < 1 || hscGpa > 5) {
+        document.getElementById('hsc-error').style.display = 'block';
+        isValid = false;
+    }
+    if (mcqMark < 0 || mcqMark > 100) {
+        document.getElementById('mcq-error').style.display = 'block';
+        isValid = false;
+    }
+
+    if (!isValid) {
+        document.getElementById('result-area').style.display = 'none';
+        return;
+    }
+
+    const sscScore = sscGpa * 8;
+    const hscScore = hscGpa * 12;
+    const totalScore = sscScore + hscScore + mcqMark;
+
+    document.getElementById('res-ssc').innerText = sscScore.toFixed(2);
+    document.getElementById('res-hsc').innerText = hscScore.toFixed(2);
+    document.getElementById('res-mcq').innerText = mcqMark;
+    document.getElementById('res-total').innerText = totalScore.toFixed(2);
+    document.getElementById('result-area').style.display = 'block';
+}
+
+function resetForm() {
+    document.getElementById('ssc').value = '';
+    document.getElementById('hsc').value = '';
+    document.getElementById('mcq').value = '';
+    document.getElementById('result-area').style.display = 'none';
+    document.querySelectorAll('.error').forEach(el => el.style.display = 'none');
+}
+</script>
+
+</body>
+</html>
